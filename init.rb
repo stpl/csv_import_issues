@@ -1,0 +1,14 @@
+Redmine::Plugin.register :csv_import_issues do
+  name 'csv_import_issues'
+  author 'Systango Pvt Ltd'
+  description 'This is a plugin for Redmine'
+  version '0.0.1'
+  requires_redmine :version_or_higher => '2.2.4'
+
+
+	project_module :issue_tracking do
+		permission :create_issues_via_csv_import,	:csv_imports => [:new, :create, :download, :create_issue]
+	end
+
+	require 'csv_import_hook_listener.rb'
+end

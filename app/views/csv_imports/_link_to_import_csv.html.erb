@@ -1,0 +1,8 @@
+<% user_permissions = User.current.roles_for_project(@project).first %>
+<% if user_permissions and user_permissions.permissions.include?(:create_issues_via_csv_import) %>
+  <% if params[:controller] == "issues" and params[:action] == "index" %>
+	  <h3> Add Issues </h3>
+	  <%= link_to("Add a new #{l(:label_issue).downcase}", { :controller => "issues", :action => "new" }) %><br>
+	  <%= link_to 'Import from CSV', new_project_csv_import_path %><br>
+  <% end %>
+<% end %>

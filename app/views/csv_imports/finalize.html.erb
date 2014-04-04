@@ -1,0 +1,42 @@
+<h2>Import <%= l(:label_issue_plural) %> from a CSV File</h2>
+<h3>Step 2 of 2: Map Fields</h3>
+<p>Using the drop down lists, please match the data in your CSV file with the fields in <%= Setting.app_title%>. </p>
+<p> When you are done, click the Import button. </p>
+<% unless @issue.errors.blank? %>
+	<div id="errorExplanation">
+		<%= l(:error_for_data_type) %>
+    <ul>
+      <% @issue.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+	</div>
+<% end %>
+<%= form_for :import, :url=> create_issue_project_csv_imports_path do |f| %>
+  <div class="autoscroll">
+    <table class="list issues">
+      <thead>
+        <tr>
+    			<th>CSV file: Header</th>
+			    <th>CSV file: Data in first <%= l(:label_issue) %></th>
+			    <th><%= "#{Setting.app_title} field"%></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @csv_rows[0].each_with_index do |value, index| %>
+          <tr class="<%= cycle('odd', 'even') %> issue child parent">
+				    <td> <%= value %> </td>
+				    <td> <%= @csv_rows[1][index] %> </td>
+				    <% @options = params[:options][index] if params[:import] %>
+				    <td>
+				      <%= select_tag :options, options_for_select(@query, :selected => @options), {:name => "options[]", :prompt => "No Match (Skip)"} 
+%>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= f.hidden_field :csv, :value => @csv_rows %><br><br>
+    <%= f.submit "Import" %>
+  </div>
+<% end %>

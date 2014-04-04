@@ -1,0 +1,32 @@
+<h2>Import <%= l(:label_issue_plural) %> from a CSV File</h2>
+<h3>Step 1 of 2: Select CSV file</h3>
+<p><%= "Hi there! You can create new #{l(:label_issue_plural).downcase} in #{Setting.app_title} by importing a CSV (comma separated values) file containing #{l(:label_issue_plural).downcase}. You can click the 'Sample CSV file' link below to download a sample CSV file that contains proper format for each field in #{Setting.app_title}." %></p>
+<% unless @import.errors.blank? %>
+  <div id="errorExplanation">
+	  <ul>
+		  <% @import.errors.messages[:csv].each do |message| %>
+			  <%(message.to_a).each do  |msg| %>
+				  <li><%= msg %></li>
+			  <%end %>
+		  <% end %>
+	  </ul>
+  </div>
+<% end %>
+<%= form_for @import, :url=> project_csv_imports_path, :html => {:class=>"tabular"} do |f| %>
+  <div class="box">
+    <p>
+      <label>File</label>
+      <span id="attachments_fields">
+        <span>
+          <%= f.file_field :csv, :class=>"file" %>
+        </span>
+      </span>
+    </p>
+  </div>
+  <%= f.submit "Import CSV" %>
+<% end %>
+      
+<div style="clear:both;"></div>
+<p>
+<%= link_to "Sample CSV file",  download_project_csv_imports_path(:format => "csv") %>
+</p>

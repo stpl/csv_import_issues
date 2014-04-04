@@ -1,0 +1,10 @@
+en:
+  permission_create_issues_via_csv_import: "Create issues via CSV import"
+  error_invalid_csv_data: "Oops! This file does not contain valid CSV (comma separated value) data. Please upload a file with valid CSV data."
+  error_to_try_map_same_field_twice: "Oops! You've tried to map more than one column in CSV file to the same Redmine field. Please verify, and try again."
+  error_file_not_of_csv_extension: 'Oops! Please upload a file with the extension of "csv".'
+  error_for_data_type: "Oops! The following fields have invalid data. Please verify, and restart the import process."
+  import_successful_notice: "Yay! The import was successful, and %{no_of_issues_created} new issues were created."
+  csv_file_not_selected_error: "Oops! Please select a CSV file to import."
+  csv_file_no_data_error: "Oops! This file has no data. Please upload a file with some data."
+  error_for_field: "is invalid"
