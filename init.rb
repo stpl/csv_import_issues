@@ -1,7 +1,7 @@
 Redmine::Plugin.register :csv_import_issues do
   name 'csv_import_issues'
-  author 'Systango Pvt Ltd'
-  description 'This is a plugin for Redmine'
+  author 'Systango'
+  description 'This is a plugin for adding multiple issues using CSV'
   version '0.0.1'
   requires_redmine :version_or_higher => '2.2.4'
 
