@@ -122,6 +122,7 @@ roles_003:
     - :add_issues
     - :edit_issues
     - :manage_issue_relations
+    - :create_issues_via_csv_import
     - :add_issue_notes
     - :move_issues
     - :view_issue_watchers
@@ -163,6 +164,7 @@ roles_004:
     - :view_calendar
     - :log_time
     - :view_time_entries
+    - :create_issues_via_csv_import
     - :comment_news
     - :view_documents
     - :manage_documents
@@ -188,6 +190,7 @@ roles_005:
     - :view_gantt
     - :view_calendar
     - :view_time_entries
+    - :create_issues_via_csv_import
     - :view_documents
     - :view_wiki_pages
     - :view_wiki_edits

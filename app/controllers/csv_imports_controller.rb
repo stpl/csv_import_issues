@@ -1,10 +1,9 @@
 class CsvImportsController < ApplicationController
   unloadable
   menu_item :issues
-  OPTION_TO_REMOVE = ["Project", :project]
+  OPTION_TO_REMOVE = [["Project", :project], ["Related issues", :relations], ["Spent time", :spent_hours]]
 
-  before_filter :find_project
-  before_filter :authorize
+  before_filter :find_project, :validate_permission_for_issue_import
   before_filter :validate_file_extension, :validate_csv,:validate_file_data, only:[:create]
   before_filter :validate_mutiple_values, :initialize_valid_params, only: [:create_issue]
 
@@ -45,6 +44,12 @@ private
   rescue ActiveRecord::RecordNotFound
     render_404
   end
+
+  def validate_permission_for_issue_import
+    render_back = true
+    User.current.roles_for_project(@project).collect { |role|  break render_back = false if role.has_permission?("create_issues_via_csv_import") }
+    render_403 if render_back
+  end
   
   def validate_file_extension
     @query =  fetch_options_to_map
@@ -82,14 +87,13 @@ private
   def validate_mutiple_values
     @query = fetch_options_to_map
     @csv_rows = eval(params[:import][:csv])
-    # Known columns that should not be in drop-down
     options = params[:options].reject(&:empty?)
     render_on_error(l(:error_to_try_map_same_field_twice), 'finalize') unless (options.uniq.length == options.length)
   end
 
   def fetch_options_to_map
     total_options = Query.new(:column_names => Setting.issue_list_default_columns).available_columns.collect{|column| [column.caption,column.name]}
-    (total_options - [OPTION_TO_REMOVE]).sort
+    (total_options - OPTION_TO_REMOVE).sort
   end
 
   def initialize_valid_params

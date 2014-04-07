@@ -3,7 +3,7 @@ class IssueValidator
   include IssueMapper
   validate :validate_and_assign_tracker, :validate_and_assign_status,
   				 :validate_and_assign_priority, :validate_and_assign_parent_issue,
-  				 :validate_and_assign_catagory, :validate_and_assign_fixed_version,
+  				 :validate_and_assign_category, :validate_and_assign_fixed_version,
            :validate_and_assign_assigned_to_id, :validate_and_assign_author
 
   def initialize(row, project, params)
@@ -20,7 +20,7 @@ class IssueValidator
     assign_or_add_error(@project.trackers.where("trackers.name = ? ", @issue_row[IssueMapper.get_value("tracker")]).first, "tracker", :tracker)
   end
 
-  ['status', 'priority'].each do |field|
+  ['status', 'priority', 'category'].each do |field|
     define_method "validate_and_assign_#{field}" do
       return if parameter_exist?(field)
       assign_or_add_error(("Issue#{field.camelize}".constantize.where("name = ? ", @issue_row[IssueMapper.get_value(field)]).first.id rescue false), "#{field}_id", field.to_sym)
@@ -30,11 +30,6 @@ class IssueValidator
   def validate_and_assign_parent_issue
     return if parameter_exist?('parent')
     assign_or_add_error((Issue.find(@issue_row[IssueMapper.get_value("parent")]).id rescue false), "parent_issue_id", :parent)
-  end
-
-  def validate_and_assign_catagory
-    return if parameter_exist?('category')
-    assign_or_add_error((IssueCategory.where("name = ? ", @issue_row[IssueMapper.get_value("category")]).first.id rescue false), "category_id", :category)
   end
 
   def validate_and_assign_fixed_version
@@ -51,7 +46,7 @@ class IssueValidator
   end
 
   def validate_and_assign_assigned_to_id
-    return if parameter_exist?('assigned_to') 
+    return if parameter_exist?('assigned_to')
     assign_or_add_error((get_user('assigned_to').id rescue false), 'assigned_to_id', :assignee)
   end
 
