@@ -21,3 +21,6 @@ rake db:migrate RAILS_ENV=test
 rake redmine:plugins:test:functionals  PLUGIN = csv_import_issues RAILS_ENV=test
 rake redmine:plugins:test PLUGIN = csv_import_issues RAILS_ENV=test
 rake db:drop RAILS_ENV=test && rake db:create db:migrate redmine:plugins:migrate RAILS_ENV=test && rake redmine:plugins:test PLUGIN=csv_import_issues RAILS_ENV=test
+
+
+This software is licensed under the terms of the GNU General Public License (GPL) v2. See COPYRIGHT and COPYING for details.
