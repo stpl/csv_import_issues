@@ -1,7 +1,7 @@
 class CsvImportsController < ApplicationController
   unloadable
   menu_item :issues
-  OPTION_TO_REMOVE = [["Project", :project], ["Related issues", :relations], ["Spent time", :spent_hours]]
+  OPTION_TO_REMOVE = [["Project", :project], ["Related issues", :relations], ["Spent time", :spent_hours], ["#", :id]]
 
   before_filter :find_project, :validate_permission_for_issue_import
   before_filter :validate_file_extension, :validate_csv,:validate_file_data, only:[:create]
@@ -92,7 +92,7 @@ private
   end
 
   def fetch_options_to_map
-    total_options = Query.new(:column_names => Setting.issue_list_default_columns).available_columns.collect{|column| [column.caption,column.name]}
+    total_options = IssueQuery.new(:column_names => Setting.issue_list_default_columns).available_columns.collect{|column| [column.caption,column.name]}
     (total_options - OPTION_TO_REMOVE).sort
   end
 
