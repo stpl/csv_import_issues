@@ -14,6 +14,14 @@
 
 * Redmine 2.3.0.stable and above
 
+== How it works
+
+* Go to Administration > Roles and Permissions. Provide permission to a group to create issues via CSV by selecting checkbox "Create issues via CSV import".
+* To create issues, create a CSV .
+* Go to issues for a project. Click on "import issues" link to upload CSV.
+* Once CSV is uploaded properly, a view will be populated for field mapping.
+* After mapping, submit form. It will create issues listed in CSV.
+
 == Test
 
 * rake db:drop RAILS_ENV=test
