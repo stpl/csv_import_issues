@@ -55,7 +55,7 @@ private
     @query =  fetch_options_to_map
     return if params[:csv_import].blank?
     file_name = params[:csv_import][:csv].original_filename
-    render_on_error(l(:error_file_not_of_csv_extension)) if file_name.count('.') > 1 or File.extname(file_name) != (".csv")
+    render_on_error(l(:error_file_not_of_csv_extension)) if File.extname(file_name) != (".csv")
   end
 
   def validate_file_data
