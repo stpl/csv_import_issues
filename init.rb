@@ -1,3 +1,7 @@
+Rails.application.config.to_prepare do
+  CsvImportIssues.apply_patch
+end
+
 Redmine::Plugin.register :csv_import_issues do
   name 'csv_import_issues'
   author 'Systango'
