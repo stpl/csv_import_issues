@@ -25,8 +25,8 @@
       <tbody>
         <% @csv_rows[0].each_with_index do |value, index| %>
           <tr class="<%= cycle('odd', 'even') %> issue child parent">
-				    <td> <%= value %> </td>
-				    <td> <%= @csv_rows[1][index] %> </td>
+				    <td> <%= value.force_encoding("utf-8") %> </td>
+				    <td> <%= @csv_rows[1][index].force_encoding("utf-8") %> </td>
 				    <% @options = params[:options][index] if params[:import] %>
 				    <td>
 				      <%= select_tag :options, options_for_select(@query, :selected => @options), {:name => "options[]", :prompt => "No Match (Skip)"} 
