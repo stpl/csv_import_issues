@@ -11,7 +11,7 @@ class CsvImport
 
   has_attached_file :csv
   validates_attachment :csv, :presence => {:message => "Oops! Please select a CSV file to import."},
-  :content_type => { :content_type => ['text/csv','text/comma-separated-values','application/csv','application/octet-stream'], :message => "Oops! Please upload a file with the extension of csv." },
+  :content_type => { :content_type => ['text/csv','text/comma-separated-values','application/csv','application/octet-stream','application/excel','application/vnd.ms-excel', 'application/vnd.msexcel', 'text/anytext'], :message => "Oops! Please upload a file with the extension of csv." },
   :size => { :greater_than => 0.kilobytes, :message => 'Oops! This file has no data. Please upload a file with some data.' }
 
   def initialize(attributes={})
