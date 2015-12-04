@@ -29,7 +29,8 @@
 				    <td> <%= @csv_rows[1][index].force_encoding("utf-8") %> </td>
 				    <% @options = params[:options][index] if params[:import] %>
 				    <td>
-				      <%= select_tag :options, options_for_select(@query, :selected => @options), {:name => "options[]", :prompt => "No Match (Skip)"} 
+				      <% selected = @query.find { |option| option.any? { |i| i.downcase == value.downcase } } %>
+				      <%= select_tag :options, options_for_select(@query, selected), {:name => "options[]", :prompt => "No Match (Skip)"}
 %>
             </td>
           </tr>
